@@ -202,8 +202,9 @@ class TumblrDownloader:
 
         elif post['type'] == 'video':
             if names is None:
-                file_name = post['video_url'].split('/')[-1]
-                self._download_file(post['video_url'], os.path.join(path, file_name))
+                if 'video_url' in post:
+                    file_name = post['video_url'].split('/')[-1]
+                    self._download_file(post['video_url'], os.path.join(path, file_name))
             else:
                 file_name = names.get(blog_name, 'mp4')
                 if self._download_file(post['video_url'], os.path.join(path, file_name)):
